@@ -23,14 +23,13 @@ const CustomPaw = ({ className, style }: { className?: string; style?: React.CSS
 export default function Nosotros() {
   return (
     <div className="w-full">
-      <section className="relative bg-[#4B0082] py-14 md:py-20 px-6 md:px-12 lg:px-20 overflow-hidden">
-        {/* Huella decorativa de fondo */}
-        <CustomPaw className="absolute left-[-8%] top-[5%] h-[300px] w-[300px] md:h-[400px] md:w-[400px] text-white opacity-5 -rotate-12 pointer-events-none" />
-        <CustomPaw className="absolute right-[-5%] bottom-[5%] h-[200px] w-[200px] md:h-[300px] md:w-[300px] text-white opacity-5 rotate-12 pointer-events-none" />
-
+      <section
+        className="relative section-px py-14 md:py-20 overflow-hidden"
+        style={{ backgroundColor: "var(--color-brand)" }}
+      >
         <div className="container mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 relative z-10">
 
-          {/* Imagen — en móvil aparece primero, más pequeña */}
+          {/* Imagen */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -39,17 +38,11 @@ export default function Nosotros() {
             className="w-full md:w-1/2 flex justify-center"
           >
             <div className="relative w-[220px] h-[260px] sm:w-[280px] sm:h-[340px] md:w-[380px] md:h-[460px] lg:w-[440px] lg:h-[520px]">
-              {/* Blob decorativo detrás */}
               <div
-                className="absolute inset-0 bg-purple-400 opacity-20 scale-110"
-                style={{ borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%" }}
+                className="absolute inset-0 opacity-20 scale-110"
+                style={{ backgroundColor: "var(--color-brand-light)", borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%" }}
               />
-              <Image
-                src="/vet-doctor.png"
-                alt="Sobre Nosotros"
-                fill
-                className="object-contain relative z-10 drop-shadow-2xl"
-              />
+              <Image src="/img/doctor.png" alt="Sobre Nosotros" fill className="object-contain relative z-10 drop-shadow-2xl" />
             </div>
           </motion.div>
 
@@ -61,7 +54,10 @@ export default function Nosotros() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="w-full md:w-1/2 text-white text-center md:text-left"
           >
-            <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-purple-200">
+            <span
+              className="text-[10px] font-bold tracking-[0.35em] uppercase"
+              style={{ color: "var(--color-brand-light)" }}
+            >
               Amor en cada consulta
             </span>
 
@@ -69,24 +65,19 @@ export default function Nosotros() {
               SOBRE<br className="hidden sm:block" /> NOSOTROS
             </h2>
 
-            <div className="w-12 h-1 bg-yellow-400 rounded-full mb-5 mx-auto md:mx-0" />
+            <div className="w-12 h-1 rounded-full mb-5 mx-auto md:mx-0" style={{ backgroundColor: "var(--color-accent)" }} />
 
-            <p className="text-purple-100 leading-relaxed text-sm sm:text-base max-w-lg mx-auto md:mx-0 mb-8">
+            <p className="leading-relaxed text-sm sm:text-base max-w-lg mx-auto md:mx-0 mb-8 opacity-85">
               Somos una clínica veterinaria comprometida con el bienestar y la salud de tu mascota.
-              Brindamos atención profesional con amor, cuidando a cada paciente como parte
-              de nuestra familia.
+              Brindamos atención profesional con amor, cuidando a cada paciente como parte de nuestra familia.
             </p>
 
-            {/* Stats breves */}
+            {/* Stats */}
             <div className="flex justify-center md:justify-start gap-6 sm:gap-10 mb-8">
-              {[
-                { num: "10+", label: "Años de experiencia" },
-                { num: "5k+", label: "Pacientes atendidos" },
-                { num: "24/7", label: "Disponibilidad" },
-              ].map(({ num, label }) => (
+              {[{ num: "10+", label: "Años de experiencia" }, { num: "5k+", label: "Pacientes atendidos" }, { num: "24/7", label: "Disponibilidad" }].map(({ num, label }) => (
                 <div key={label} className="text-center">
-                  <p className="text-2xl sm:text-3xl font-black text-yellow-400">{num}</p>
-                  <p className="text-[9px] sm:text-[10px] text-purple-200 uppercase tracking-wider mt-0.5">{label}</p>
+                  <p className="text-2xl sm:text-3xl font-black" style={{ color: "var(--color-accent)" }}>{num}</p>
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider mt-0.5 opacity-70">{label}</p>
                 </div>
               ))}
             </div>
@@ -96,7 +87,16 @@ export default function Nosotros() {
               {["AMOR", "PROFESIONALISMO", "COMPROMISO"].map((item) => (
                 <div
                   key={item}
-                  className="bg-white text-[#4B0082] px-5 py-2 rounded-lg font-bold text-xs shadow-md hover:bg-yellow-400 hover:text-black transition"
+                  className="px-5 py-2 rounded-lg font-bold text-xs shadow-md transition cursor-default"
+                  style={{ backgroundColor: "white", color: "var(--color-brand)" }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "var(--color-accent)";
+                    (e.currentTarget as HTMLElement).style.color = "#000";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "white";
+                    (e.currentTarget as HTMLElement).style.color = "var(--color-brand)";
+                  }}
                 >
                   {item}
                 </div>

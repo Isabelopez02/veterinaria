@@ -1,23 +1,25 @@
-import Image from "next/image";
-import Navbar from "./component/Navbar";
+
+import Navbar from "./layout/Navbar";
 import Hero from "./component/Hero";
 import Nosotros from "./component/Nosotros";
 import Servicios from "./component/Servicios";
 import Staf from "./component/Staf";
 import Redes from "./layout/Redes";
+import Concentidos from "./component/Consentidos";
+import Footer from "./layout/Footer";
 
 export default function Home() {
   return (
     <>
-    <Redes />
-    <main>
-      <div>
-        <Navbar/>
-        <Hero/>
-        <Nosotros/>
-        <Servicios/>
-        <Staf/>
-      </div>
+    <main className="relative">
+      <Navbar/>
+      <Redes />
+      <Hero/>
+      <Nosotros/>
+      <Servicios/>
+      <Staf/>
+      <Concentidos />
+      <Footer/>
     </main>
     </>
   );

@@ -1,4 +1,61 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ════════════════════════════════════════════
+   DESIGN TOKENS — Happy Pets
+   Usar como: color: var(--color-brand);
+════════════════════════════════════════════ */
+:root {
+  /* Colores de marca */
+  --color-brand:        #4B0082;   /* Morado principal */
+  --color-brand-dark:   #3a0066;   /* Morado oscuro hover */
+  --color-brand-light:  #e9d8fd;   /* Morado muy claro (fondos) */
+  --color-accent:       #FBBF24;   /* Amarillo acento */
+  --color-accent-dark:  #f59e0b;   /* Amarillo hover */
+
+  /* Texto */
+  --color-text-base:    #1a1a1a;
+  --color-text-muted:   #6b7280;   /* gray-500 */
+  --color-text-light:   #9ca3af;   /* gray-400 */
+
+  /* Fondos */
+  --color-bg:           #ffffff;
+  --color-bg-soft:      #fafafa;
+
+  /* Padding horizontal global */
+  --px-base:   1.5rem;   /* 24px  — mobile  */
+  --px-md:     5rem;     /* 80px  — md+     */
+}
+
+/* ════════════════════════════════════════════
+   UTILIDAD GLOBAL DE PADDING HORIZONTAL
+   Aplicar clase "section-px" a cada sección
+════════════════════════════════════════════ */
+@layer utilities {
+  .section-px {
+    padding-left: var(--px-base);
+    padding-right: var(--px-base);
+  }
+  @media (min-width: 768px) {
+    .section-px {
+      padding-left: var(--px-md);
+      padding-right: var(--px-md);
+    }
+  }
+
+  /* Tipografía fluida para el título hero */
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 5rem);
+    line-height: 1.05;
+    font-weight: 900;
+  }
+}
+
+/* ════════════════════════════════════════════
+   TEXT VERTICAL (Redes sidebar)
+════════════════════════════════════════════ */
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}

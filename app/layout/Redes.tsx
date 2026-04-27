@@ -10,46 +10,57 @@ import {
 const redes = [
   {
     href: "tel:+51999999999",
-    icon: <ContactIcon size={18} variant="stroke" />,
+    icon: <ContactIcon size={16} variant="stroke" />,
     label: "Teléfono",
-    color: "bg-[#4B0082] text-white hover:bg-purple-900",
   },
   {
     href: "#",
-    icon: <InstagramIcon size={18} variant="stroke" />,
+    icon: <InstagramIcon size={16} variant="stroke" />,
     label: "Instagram",
-    color: "bg-gradient-to-br from-pink-500 via-red-500 to-yellow-400 text-white hover:opacity-90",
   },
   {
     href: "#",
-    icon: <Facebook02Icon size={18} variant="stroke" />,
+    icon: <Facebook02Icon size={16} variant="stroke" />,
     label: "Facebook",
-    color: "bg-[#1877F2] text-white hover:bg-blue-700",
   },
 ];
 
 export default function Redes() {
   return (
-    <div className="fixed left-0 top-0 h-full w-16 z-50 hidden lg:flex flex-col items-center justify-center gap-5">
-      {/* Solo iconos con círculos de colores, sin panel de fondo */}
-      {redes.map(({ href, icon, label, color }) => (
-        <a
-          key={label}
-          href={href}
-          aria-label={label}
-          title={label}
-          className={`
-            w-9 h-9 rounded-full flex items-center justify-center shadow-md
-            transition-all duration-200 hover:scale-110 active:scale-95
-            ${color}
-          `}
-        >
-          {icon}
-        </a>
-      ))}
+    /* Mobile: right-4 top-1/2 (Derecha para no estorbar lectura)
+       Desktop: left-0 top-0 h-full (Izquierda original)
+    */
+    <div className="fixed left-4 md:right-auto md:left-0 top-1/4 -translate-y-1/2 md:top-0 md:translate-y-0 md:h-full w-auto md:w-20 z-50 flex flex-col items-center justify-center pointer-events-none">
+      
+      <div className="flex flex-col items-center gap-4 md:gap-5 pointer-events-auto bg-white/10 md:bg-transparent p-2 md:p-0 rounded-full backdrop-blur-sm md:backdrop-blur-none">
+        
+        {/* Iconos */}
+        {redes.map(({ href, icon, label }) => (
+          <a
+            key={label}
+            href={href}
+            aria-label={label}
+            className="w-8 h-8 md:w-9 md:h-9 bg-white rounded-full flex items-center justify-center text-gray-400 shadow-lg md:shadow-sm border border-gray-100 hover:text-[#4B0082] transition-all duration-300 hover:scale-110 active:scale-95"
+          >
+            {icon}
+          </a>
+        ))}
 
-      {/* Línea vertical decorativa */}
-      <div className="mt-2 h-16 w-px bg-gray-200 rounded-full" />
+        {/* Línea decorativa - Solo visible en tablets/desktop para no saturar el móvil */}
+        <div className="hidden md:block h-16 w-[1px] bg-gray-200 mt-2" />
+
+        {/* Texto vertical - Solo visible en desktop */}
+        <span className="vertical-text hidden md:block text-[9px] font-black uppercase tracking-[0.4em] text-gray-400 select-none mt-1">
+          Siguenos
+        </span>
+      </div>
+
+      <style jsx>{`
+        .vertical-text {
+          writing-mode: vertical-rl;
+          transform: rotate(180deg);
+        }
+      `}</style>
     </div>
   );
 }
