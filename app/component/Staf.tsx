@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { staff } from "../ts/staf";
 
 function useSlideCount() {
@@ -30,10 +30,7 @@ export default function Staf() {
   const prev = () => setCurrent((c) => Math.max(0, c - 1));
   const next = () => setCurrent((c) => Math.min(maxIndex, c + 1));
 
-  // Swipe touch
-  const onTouchStart = (e: React.TouchEvent) => {
-    dragStart.current = e.touches[0].clientX;
-  };
+  const onTouchStart = (e: React.TouchEvent) => { dragStart.current = e.touches[0].clientX; };
   const onTouchEnd = (e: React.TouchEvent) => {
     if (dragStart.current === null) return;
     const diff = dragStart.current - e.changedTouches[0].clientX;
@@ -44,106 +41,135 @@ export default function Staf() {
   const cardWidthPercent = 100 / slideCount;
 
   return (
-    <div className="w-full bg-white font-sans">
+    <section className="py-16 md:py-24 bg-white">
+      <div className="section-px container mx-auto">
 
-      {/* ─── STAFF MÉDICO ─── */}
-      <section className="py-16 px-4 sm:px-8">
-        <div className="container mx-auto">
-          {/* Encabezado */}
-          <div className="text-center mb-12">
-            <span className="text-[10px] font-bold tracking-[0.25em] text-[#4B0082] uppercase">
-              Conoce a nuestro
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#4B0082] mt-1 uppercase">
-              Staff Médico
-            </h2>
-            <div className="w-12 h-1 bg-yellow-400 rounded-full mx-auto mt-3" />
-          </div>
+        {/* Encabezado */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <span
+            className="block text-[10px] font-black tracking-[0.4em] uppercase mb-2"
+            style={{ color: "var(--color-brand)" }}
+          >
+            Conoce a nuestro
+          </span>
+          <h2
+            className="text-3xl sm:text-4xl font-black uppercase"
+            style={{ color: "var(--color-brand)" }}
+          >
+            Staff Médico
+          </h2>
+          <div className="w-10 h-1 rounded-full mx-auto mt-3" style={{ backgroundColor: "var(--color-accent)" }} />
+        </motion.div>
 
-          {/* Carrusel */}
-          <div className="relative">
-            {/* Botón izquierdo */}
-            <button
-              onClick={prev}
-              disabled={current === 0}
-              className="absolute -left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-white rounded-full shadow-lg text-[#4B0082] hover:bg-purple-50 disabled:opacity-30 disabled:cursor-not-allowed transition"
+        {/* Carrusel */}
+        <div className="relative">
+
+          {/* Botón prev */}
+          <button
+            onClick={prev}
+            disabled={current === 0}
+            className="absolute -left-3 sm:-left-5 top-[40%] -translate-y-1/2 z-10 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-white shadow-md transition hover:shadow-lg disabled:opacity-25 disabled:cursor-not-allowed"
+            style={{ color: "var(--color-brand)", border: "1px solid var(--color-brand-light)" }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          {/* Track */}
+          <div
+            className="overflow-hidden mx-5 sm:mx-7"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            <motion.div
+              className="flex"
+              animate={{ x: `-${current * cardWidthPercent}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 32 }}
             >
-              <ChevronLeft size={22} />
-            </button>
-
-            {/* Ventana del carrusel */}
-            <div
-              className="overflow-hidden mx-6 sm:mx-8"
-              onTouchStart={onTouchStart}
-              onTouchEnd={onTouchEnd}
-            >
-              <motion.div
-                className="flex"
-                animate={{ x: `-${current * cardWidthPercent}%` }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              >
-                {staff.map((doc, index) => (
+              {staff.map((doc, index) => (
+                <div
+                  key={index}
+                  style={{ minWidth: `${cardWidthPercent}%` }}
+                  className="px-2.5 shrink-0"
+                >
                   <div
-                    key={index}
-                    style={{ minWidth: `${cardWidthPercent}%` }}
-                    className="px-3 flex-shrink-0"
+                    className="group rounded-2xl overflow-hidden border bg-white transition-all duration-300 hover:shadow-xl"
+                    style={{ borderColor: "var(--color-brand-light)" }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-brand)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-brand-light)")}
                   >
-                    <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-purple-50 hover:border-purple-200">
-                      {/* Imagen con fondo */}
-                      <div className="relative h-52 sm:h-60 bg-gradient-to-b from-purple-50 to-purple-100 flex items-end justify-center overflow-hidden">
-                        <div className="absolute inset-0 bg-purple-100 opacity-50 group-hover:opacity-70 transition" />
-                        <Image
-                          src={doc.img}
-                          alt={doc.name}
-                          fill
-                          className="object-contain object-bottom p-4 relative z-10 group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
+                    {/* Imagen */}
+                    <div
+                      className="relative h-52 sm:h-56 flex items-end justify-center overflow-hidden"
+                      style={{ background: "linear-gradient(to bottom, var(--color-brand-light), #d8b4fe33)" }}
+                    >
+                      <Image
+                        src={doc.img}
+                        alt={doc.name}
+                        fill
+                        className="object-contain object-bottom p-3 z-10 transition-transform duration-500 group-hover:scale-[1.04]"
+                      />
+                    </div>
 
-                      {/* Info */}
-                      <div className="p-5 text-center">
-                        <h3 className="text-xs sm:text-[13px] font-black text-[#222] mb-1 leading-tight">
-                          {doc.name}
-                        </h3>
-                        <p className="text-[10px] sm:text-xs text-purple-400 mb-3 font-medium">
-                          {doc.specialty}
-                        </p>
-                        <button className="w-full bg-[#4B0082] hover:bg-purple-900 text-white text-[10px] sm:text-xs font-bold py-2 px-4 rounded-full transition active:scale-95">
-                          Reservar cita →
-                        </button>
-                      </div>
+                    {/* Info */}
+                    <div className="px-5 py-4 text-center">
+                      <h3
+                        className="text-xs font-black uppercase leading-tight mb-1"
+                        style={{ color: "var(--color-text-base)" }}
+                      >
+                        {doc.name}
+                      </h3>
+                      <p
+                        className="text-[10px] font-medium mb-4"
+                        style={{ color: "var(--color-brand)" }}
+                      >
+                        {doc.specialty}
+                      </p>
+                      <button
+                        className="w-full py-2 rounded-full text-white text-[10px] font-bold tracking-wide transition active:scale-95 hover:opacity-90"
+                        style={{ backgroundColor: "var(--color-brand)" }}
+                      >
+                        Reservar cita →
+                      </button>
                     </div>
                   </div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Botón derecho */}
-            <button
-              onClick={next}
-              disabled={current === maxIndex}
-              className="absolute -right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-white rounded-full shadow-lg text-[#4B0082] hover:bg-purple-50 disabled:opacity-30 disabled:cursor-not-allowed transition"
-            >
-              <ChevronRight size={22} />
-            </button>
+                </div>
+              ))}
+            </motion.div>
           </div>
 
-          {/* Dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`rounded-full transition-all ${
-                  i === current
-                    ? "w-6 h-2.5 bg-[#4B0082]"
-                    : "w-2.5 h-2.5 bg-purple-200 hover:bg-purple-300"
-                }`}
-              />
-            ))}
-          </div>
+          {/* Botón next */}
+          <button
+            onClick={next}
+            disabled={current === maxIndex}
+            className="absolute -right-3 sm:-right-5 top-[40%] -translate-y-1/2 z-10 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-white shadow-md transition hover:shadow-lg disabled:opacity-25 disabled:cursor-not-allowed"
+            style={{ color: "var(--color-brand)", border: "1px solid var(--color-brand-light)" }}
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
-      </section>
-    </div>
+
+        {/* Dots */}
+        <div className="flex justify-center items-center gap-1.5 mt-8">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className="rounded-full transition-all duration-300"
+              style={{
+                width: i === current ? "24px" : "8px",
+                height: "8px",
+                backgroundColor: i === current ? "var(--color-brand)" : "var(--color-brand-light)",
+              }}
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
   );
 }

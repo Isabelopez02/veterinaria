@@ -1,41 +1,65 @@
 "use client";
 
 import Image from "next/image";
-// Importamos los datos y la interfaz
+import { motion } from "framer-motion";
 import { consentidosData, Consentido } from "../ts/concentido";
 
 export default function Concentidos() {
   return (
-    <div className="w-full bg-white font-sans">
-      {/* ─── NUESTROS CONSENTIDOS ─── */}
-      <section className="py-10">
-        <div className="container mx-auto text-center mb-8 px-4">
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-[2px] w-12 sm:w-20 bg-[#4B0082]" />
-            <h2 className="text-2xl sm:text-3xl font-black text-[#4B0082] uppercase">
-              Nuestros Consentidos
-            </h2>
-            <div className="h-[2px] w-12 sm:w-20 bg-[#4B0082]" />
-          </div>
+    <section className="py-16 bg-white overflow-hidden">
+      {/* Encabezado */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="section-px container mx-auto text-center mb-10"
+      >
+        <span
+          className="block text-[10px] font-black tracking-[0.4em] uppercase mb-2"
+          style={{ color: "var(--color-brand)" }}
+        >
+          Ellos nos inspiran
+        </span>
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-px flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: "var(--color-brand-light)" }} />
+          <h2
+            className="text-2xl sm:text-3xl font-black uppercase"
+            style={{ color: "var(--color-brand)" }}
+          >
+            Nuestros Consentidos
+          </h2>
+          <div className="h-px flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: "var(--color-brand-light)" }} />
         </div>
+      </motion.div>
 
-        {/* Galería Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 w-full h-[240px] sm:h-[320px] md:h-[400px]">
-          {consentidosData.map((pet: Consentido) => (
-            <div key={pet.id} className="relative overflow-hidden group">
-              <Image
-                src={pet.img}
-                alt={pet.alt}
-                fill
-                sizes="(max-width: 768px) 50vw, 25vw"
-                className="object-cover transition duration-500 group-hover:scale-110"
-              />
-              {/* Overlay sutil al hacer hover */}
-              <div className="absolute inset-0 bg-purple-900/0 group-hover:bg-purple-900/20 transition duration-500" />
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
+      {/* Galería */}
+      <div className="grid grid-cols-2 md:grid-cols-4 w-full h-[220px] sm:h-[300px] md:h-[380px]">
+        {consentidosData.map((pet: Consentido, i: number) => (
+          <motion.div
+            key={pet.id}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.08 }}
+            className="relative overflow-hidden group"
+          >
+            <Image
+              src={pet.img}
+              alt={pet.alt}
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            {/* Overlay gradiente en hover */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background: "linear-gradient(to top, rgba(75,0,130,0.45) 0%, transparent 60%)",
+              }}
+            />
+          </motion.div>
+        ))}
+      </div>
+    </section>
   );
 }
