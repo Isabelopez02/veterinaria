@@ -1,12 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link"; // 1. Importamos Link
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { services } from "../ts/servicio";
 
-const CustomPaw = ({ className }: { className?: string }) => (
+const CustomPaw = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
   <div
     className={`inline-block ${className}`}
     style={{
@@ -17,133 +20,125 @@ const CustomPaw = ({ className }: { className?: string }) => (
       WebkitMaskRepeat: "no-repeat",
       WebkitMaskSize: "contain",
       backgroundColor: "currentColor",
+      ...style,
     }}
   />
 );
 
 export default function Servicios() {
-  const [emblaRef] = useEmblaCarousel({
-    align: "start",
-    containScroll: "trimSnaps",
-    dragFree: true,
-  });
+  const doubleServices = [...services, ...services];
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { 
+      align: "start", 
+      loop: true, 
+      skipSnaps: false, 
+      duration: 30 
+    },
+    [Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })]
+  );
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-white">
-      {/* Huellas decorativas */}
-      <CustomPaw className="absolute -left-8 bottom-12 h-52 w-52 text-purple-50 rotate-12 pointer-events-none" />
-      <CustomPaw className="absolute -right-8 top-12 h-64 w-64 text-purple-50 -rotate-12 pointer-events-none" />
-
-      <div className="section-px container mx-auto relative z-10">
-        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
-
-          {/* ── Columna izquierda: header sticky ── */}
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="w-full lg:w-[30%] lg:sticky lg:top-24 shrink-0"
-          >
-            <span
-              className="block text-[10px] font-black tracking-[0.4em] uppercase mb-3"
-              style={{ color: "var(--color-brand)" }}
+    <section className="relative pt-24 md:pt-32 pb-0 overflow-hidden bg-gradient-to-b from-white via-purple-50/30 to-purple-100/20">
+      
+      <CustomPaw className="absolute left-[-5%] top-[10%] h-[500px] w-[500px] text-purple-100/40 -rotate-12 z-0" />
+      <CustomPaw className="absolute right-[-10%] top-[30%] h-[400px] w-[400px] text-purple-100/30 rotate-12 z-0" />
+      
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-16 lg:gap-20">
+          
+          <div className="w-full lg:w-[400px] shrink-0">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
             >
-              Lo que ofrecemos
-            </span>
-
-            <h2
-              className="text-4xl md:text-5xl font-black leading-[1.05] uppercase"
-              style={{ color: "var(--color-text-base)" }}
-            >
-              Cuidamos<br />a tu{" "}
-              <span style={{ color: "var(--color-brand)" }}>
-                Mejor<br />Amigo
+              <span className="text-[12px] font-black tracking-[0.4em] uppercase block mb-4 text-purple-600">
+                Lo que ofrecemos
               </span>
-            </h2>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] uppercase mb-6 text-gray-900">
+                CUIDAMOS <br />
+                A TU <span className="text-purple-700">MEJOR</span> <br />
+                <span className="text-purple-700">AMIGO</span>
+              </h2>
+              <p className="text-gray-500 text-base leading-relaxed mb-10 max-w-[320px]">
+                Servicios especializados con tecnología de punta para garantizar la salud y felicidad de tus mascotas.
+              </p>
+              
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={scrollPrev}
+                  className="w-12 h-12 rounded-full bg-purple-700 text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-lg z-20"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  onClick={scrollNext}
+                  className="w-12 h-12 rounded-full bg-purple-700 text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-lg z-20"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </motion.div>
+          </div>
 
-            <p className="mt-5 text-sm leading-relaxed max-w-[260px]" style={{ color: "var(--color-text-muted)" }}>
-              Servicios especializados con tecnología de punta para garantizar
-              la salud y felicidad de tus mascotas en todo momento.
-            </p>
-
-            <div className="w-10 h-1 rounded-full mt-7" style={{ backgroundColor: "var(--color-accent)" }} />
-
-            {/* Contador de servicios */}
-            <p className="mt-5 text-xs font-bold" style={{ color: "var(--color-text-light)" }}>
-              {services.length} servicios disponibles
-            </p>
-          </motion.div>
-
-          {/* ── Columna derecha: carrusel draggable ── */}
-          <div className="w-full lg:flex-1 min-w-0">
-            <div
-              className="overflow-hidden cursor-grab active:cursor-grabbing"
-              ref={emblaRef}
-            >
-              <div className="flex gap-5">
-                {services.map((service, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.06, duration: 0.4 }}
-                    whileHover={{ y: -6 }}
-                    /* Card: ancho fijo para hacer scroll */
-                    className="flex-[0_0_220px] sm:flex-[0_0_240px] min-w-0 select-none"
-                  >
-                    <div className="h-full rounded-2xl border border-purple-50 bg-white shadow-[0_6px_24px_rgba(75,0,130,0.06)] hover:border-purple-200 hover:shadow-[0_10px_36px_rgba(75,0,130,0.10)] transition-all duration-300 flex flex-col items-center text-center p-6 group">
-                      {/* Imagen con micro-zoom */}
-                      <div className="relative h-36 w-full mb-5 overflow-hidden">
-                        <Image
-                          src={service.img}
-                          alt={service.title}
-                          fill
-                          className="object-contain transition-transform duration-500 group-hover:scale-110"
+          <div className="w-full overflow-hidden" ref={emblaRef}>
+            <div className="flex touch-pan-y">
+              {doubleServices.map((service, index) => (
+                <div 
+                  key={`${service.id}-${index}`} // Usamos el ID del servicio
+                  className="flex-[0_0_280px] sm:flex-[0_0_320px] min-w-0 px-4 py-6"
+                >
+                  {/* 2. Envolvemos la card en un Link dinámico */}
+                  <Link href={`/servicios/${service.id}`}>
+                    <motion.div
+                      whileHover={{ y: -10 }}
+                      className="bg-white rounded-[32px] p-8 h-full flex flex-col items-center text-center shadow-[0_15px_35px_rgba(75,0,130,0.08)] border border-purple-50 group cursor-pointer"
+                    >
+                      <div className="h-44 w-full relative mb-6">
+                        <Image 
+                          src={service.img} 
+                          alt={service.title} 
+                          fill 
+                          className="object-contain transition-transform duration-500 group-hover:scale-110" 
                         />
                       </div>
-
-                      {/* Pill de categoría */}
-                      <span
-                        className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full mb-2"
-                        style={{
-                          backgroundColor: "var(--color-brand-light)",
-                          color: "var(--color-brand)",
-                        }}
-                      >
-                        Servicio
+                      
+                      <span className="text-[10px] font-black px-4 py-1.5 rounded-full mb-5 uppercase tracking-wider bg-purple-100 text-purple-700">
+                        Servicio Especializado
                       </span>
-
-                      <h3
-                        className="text-[12px] font-black uppercase leading-tight mb-1.5"
-                        style={{ color: "var(--color-text-base)" }}
-                      >
+                      
+                      <h3 className="text-sm font-black mb-3 tracking-wide uppercase text-gray-800 group-hover:text-purple-700 transition-colors">
                         {service.title}
                       </h3>
-                      <p
-                        className="text-[11px] leading-snug"
-                        style={{ color: "var(--color-text-light)" }}
-                      >
+                      <p className="text-xs leading-relaxed text-gray-400">
                         {service.desc}
                       </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                    </motion.div>
+                  </Link>
+                </div>
+              ))}
             </div>
 
-            {/* Hint de deslizamiento */}
-            <div
-              className="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest"
-              style={{ color: "var(--color-text-light)" }}
-            >
-              <div className="h-px w-8 rounded-full" style={{ backgroundColor: "var(--color-brand-light)" }} />
-              Desliza para ver más
+            <div className="mt-8 flex items-center justify-center gap-4">
+              <div className="h-px w-20 bg-gradient-to-r from-transparent to-purple-300" />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-purple-300">
+                Explora nuestros servicios
+              </span>
+              <div className="h-px w-20 bg-gradient-to-l from-transparent to-purple-300" />
             </div>
           </div>
 
         </div>
+      </div>
+
+      <div className="relative w-full overflow-hidden leading-[0] mt-16">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="block w-full h-[80px] fill-purple-700">
+          <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z" />
+        </svg>
       </div>
     </section>
   );
