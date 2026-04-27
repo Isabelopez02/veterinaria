@@ -10,12 +10,14 @@ export default function Home() {
   return (
     <>
     <Redes />
-    <main className="lg:pl-20">
-      <Navbar/>
-      <Hero/>
-      <Nosotros/>
-      <Servicios/>
-      <Staf/>
+    <main>
+      <div>
+        <Navbar/>
+        <Hero/>
+        <Nosotros/>
+        <Servicios/>
+        <Staf/>
+      </div>
     </main>
     </>
   );

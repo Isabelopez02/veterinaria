@@ -27,12 +27,11 @@ export default function Servicios() {
     { title: "CONSULTA ESPECIALIZADA", desc: "Diagnóstico experto y preciso.", img: "/servicios/consulta_per.png" },
     { title: "MEDICINA FELINA", desc: "Cuidado especializado para gatos", img: "/servicios/consulta.png" },
     { title: "HEMOGRAFIA", desc: "Análisis sanguíneo completo.", img: "/servicios/hemografia.png" },
-    { title: "LABORATORIO IDEXX", desc: "Estudio, diagnóstico y tratamiento del cáncer", img: "/dog-oncology.png" },
-    { title: "ECOGRAFIA", desc: "Diagnóstico experto y preciso.", img: "/servicios/ecografia.png" },
-    { title: "SDMA", desc: "Cuidado especializado para gatos", img: "/servicios/sdma.png" },
-    { title: "HEMOGRAFIA", desc: "Análisis sanguíneo completo.", img: "/turtle-lab.png" },
-  ];
-
+     { title: "LABORATORIO IDEXX", desc: "Estudio, diagnóstico y tratamiento del cáncer", img: "/servicios/laboratorio.png" },
+  { title: "ECOGRAFIA", desc: "Diagnóstico experto y preciso.", img: "/servicios/ecografia.png" },
+  { title: "SDMA", desc: "Cuidado especializado para gatos", img: "/servicios/sdma.png" },
+  { title: "HEMOGRAFIA", desc: "Análisis sanguíneo completo.", img: "/servicios/hemografia.png" },
+];
   return (
     <div className="w-full">
 
