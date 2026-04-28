@@ -1,6 +1,6 @@
-import Navbar from "../../layout/Navbar";
-import Redes from "../../layout/Redes";
-import Footer from "../../layout/Footer";
+import Navbar from "../layout/Navbar";
+import Redes from "../layout/Redes";
+import Footer from "../layout/Footer";
 
 export default function ServicioLayout({
   children,

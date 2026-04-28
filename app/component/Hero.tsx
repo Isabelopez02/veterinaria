@@ -3,22 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
-const CustomPaw = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
-  <div
-    className={`inline-block ${className}`}
-    style={{
-      maskImage: "url(/paw-icon.svg)",
-      maskRepeat: "no-repeat",
-      maskSize: "contain",
-      WebkitMaskImage: "url(/paw-icon.svg)",
-      WebkitMaskRepeat: "no-repeat",
-      WebkitMaskSize: "contain",
-      backgroundColor: "currentColor",
-      ...style,
-    }}
-  />
-);
+import { CustomPaw } from "./customPaw";
 
 const AnimatedPaw = ({ className, style, delay = 0, duration = 4 }: { className?: string;  style?: React.CSSProperties; delay?: number; duration?: number }) => {
   const [opacity, setOpacity] = useState(0);

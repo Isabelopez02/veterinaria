@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PawPrint, Menu, X } from "lucide-react";
+import { CustomPaw } from "../component/customPaw";
 
 const navLinks = ["Nosotros", "Staff Médico", "Servicios", "Ubicación", "Blogs", "Contacto"];
 
@@ -31,14 +31,15 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100 overflow-hidden">
         {/* ── Huellas decorativas de fondo en el header ── */}
         <div className="absolute inset-0 pointer-events-none select-none">
-          <PawBg className="absolute -left-3 -top-4 w-16 h-16 text-purple-100 rotate-[-20deg]" />
-          <PawBg className="absolute left-28 top-1 w-10 h-10 text-purple-100 rotate-[15deg]" />
-          <PawBg className="absolute left-1/2 -translate-x-1/2 -top-3 w-14 h-14 text-yellow-100 rotate-[30deg]" />
-          <PawBg className="absolute right-56 top-0 w-9 h-9 text-purple-100 rotate-[-10deg]" />
-          <PawBg className="absolute right-24 -top-2 w-12 h-12 text-purple-100 rotate-[25deg]" />
-          <PawBg className="absolute right-6 top-2 w-8 h-8 text-yellow-100 rotate-[-30deg]" />
-          <PawBg className="absolute left-1/3 bottom-0 w-7 h-7 text-purple-100 rotate-[40deg]" />
-          <PawBg className="absolute left-2/3 -bottom-1 w-6 h-6 text-purple-100 rotate-[-15deg]" />
+          {/* Usamos CustomPaw en lugar de PawBg */}
+          <CustomPaw className="absolute -left-3 -top-4 w-16 h-16 text-purple-100 rotate-[-20deg]" />
+          <CustomPaw className="absolute left-28 top-1 w-10 h-10 text-purple-100 rotate-[15deg]" />
+          <CustomPaw className="absolute left-1/2 -translate-x-1/2 -top-3 w-14 h-14 text-yellow-100 rotate-[30deg]" />
+          <CustomPaw className="absolute right-56 top-0 w-9 h-9 text-purple-100 rotate-[-10deg]" />
+          <CustomPaw className="absolute right-24 -top-2 w-12 h-12 text-purple-100 rotate-[25deg]" />
+          <CustomPaw className="absolute right-6 top-2 w-8 h-8 text-yellow-100 rotate-[-30deg]" />
+          <CustomPaw className="absolute left-1/3 bottom-0 w-7 h-7 text-purple-100 rotate-[40deg]" />
+          <CustomPaw className="absolute left-2/3 -bottom-1 w-6 h-6 text-purple-100 rotate-[-15deg]" />
         </div>
 
         <nav className="relative mx-auto max-w-7xl px-5 py-4 flex items-center justify-between">

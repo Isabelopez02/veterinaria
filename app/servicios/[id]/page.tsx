@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowLeft, CheckCircle2, HelpCircle, Users } from "lucide-react";
 import { Medicine01Icon } from "hugeicons-react";
 import { services } from "../../ts/servicio";
+import { CustomPaw } from "@/app/component/customPaw";
 
 /* ── Fondo de huella SVG inline ── */
 const PawBg = ({ className }: { className?: string }) => (
@@ -107,10 +108,15 @@ export default function DetalleServicio() {
 
   const servicio = services.find((s) => s.id === params.id);
 
+  // ── ESTADO NO ENCONTRADO ──
   if (!servicio)
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center px-6">
-        <PawBg className="w-24 h-24 opacity-20" style={{ color: "var(--color-brand)" } as React.CSSProperties} />
+        {/* Reemplazado PawBg por CustomPaw */}
+        <CustomPaw 
+          className="w-24 h-24 opacity-20" 
+          style={{ color: "var(--color-brand)" }} 
+        />
         <h1 className="text-2xl font-black" style={{ color: "var(--color-brand)" }}>
           Servicio no encontrado
         </h1>
@@ -131,102 +137,81 @@ export default function DetalleServicio() {
     <div className="min-h-screen bg-white">
 
       {/* ══ HERO ══ */}
-      <section
-        className="relative overflow-hidden pt-10 pb-16 md:pt-14 md:pb-24"
+        <section className="relative overflow-hidden pt-6 pb-10 md:pt-10 md:pb-1" // Reduje padding vertical (antes pt-10 pb-16)
         style={{ backgroundColor: "var(--color-brand-light)" }}
-      >
-        {/* Huellas decorativas */}
-        <PawBg className="absolute -left-10 -top-8 w-52 h-52 opacity-10 pointer-events-none" style={{ color: "var(--color-brand)" } as React.CSSProperties} />
-        <PawBg className="absolute right-4 bottom-0 w-44 h-44 opacity-10 rotate-12 pointer-events-none" style={{ color: "var(--color-brand)" } as React.CSSProperties} />
+        >
+        {/* Huellas decorativas (se mantienen igual) */}
+        <CustomPaw className="absolute -left-10 -top-8 w-52 h-52 opacity-10 pointer-events-none" style={{ color: "var(--color-brand)" }} />
+        <CustomPaw className="absolute right-4 bottom-0 w-44 h-44 opacity-10 rotate-12 pointer-events-none" style={{ color: "var(--color-brand)" }} />
 
-        <div className="section-px container mx-auto relative z-10">
-
-          {/* Breadcrumb */}
-          <motion.div
+        {/* Contenedor con max-width más estrecho para centrar el contenido */}
+        <div className="px-6 container mx-auto max-w-5xl relative z-10"> {/* Cambié section-px por px-6 y añadí max-w-5xl */}
+            
+            {/* Breadcrumb */}
+            <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 mb-8"
-          >
-            <Link
-              href="/"
-              className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition hover:opacity-70"
-              style={{ color: "var(--color-brand)" }}
+            className="flex items-center gap-2 mb-6" // Reduje margen inferior
             >
-              <ArrowLeft size={14} />
-              Inicio
+            <Link href="/" className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition hover:opacity-70" style={{ color: "var(--color-brand)" }}>
+                <ArrowLeft size={14} /> Inicio
             </Link>
             <span className="text-xs" style={{ color: "var(--color-text-light)" }}>/</span>
             <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-text-light)" }}>
-              {servicio.title}
-            </span>
-          </motion.div>
-
-          {/* Contenido del hero */}
-          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-
-            {/* Texto */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.55 }}
-              className="w-full md:w-1/2 text-center md:text-left"
-            >
-              <span
-                className="block text-[10px] font-black tracking-[0.4em] uppercase mb-3"
-                style={{ color: "var(--color-brand)" }}
-              >
-                Servicio especializado
-              </span>
-              <h1
-                className="hero-title mb-5 uppercase leading-[1.04]"
-                style={{ color: "var(--color-brand)" }}
-              >
                 {servicio.title}
-              </h1>
-              <p
-                className="text-sm md:text-base leading-relaxed mb-8 max-w-md mx-auto md:mx-0"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+            </span>
+            </motion.div>
+
+            {/* Contenido del hero */}
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12"> {/* Reduje el gap lateral */}
+
+            {/* Texto centrado visualmente */}
+            <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.55 }}
+                className="w-full md:w-3/5 text-center md:text-left" // Le di un poco más de peso al texto
+            >
+                <span className="block text-[10px] font-black tracking-[0.4em] uppercase mb-2" style={{ color: "var(--color-brand)" }}>
+                Servicio especializado
+                </span>
+                <h1 className="text-3xl md:text-5xl font-black mb-4 uppercase leading-tight" style={{ color: "var(--color-brand)" }}>
+                {servicio.title}
+                </h1>
+                <p className="text-sm md:text-base leading-relaxed mb-6 max-w-md mx-auto md:mx-0" style={{ color: "var(--color-text-muted)" }}>
                 {servicio.longDesc}
-              </p>
-              <motion.button
+                </p>
+                <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-block px-8 py-3.5 rounded-full font-bold text-white shadow-lg transition"
+                className="inline-block px-8 py-3 rounded-full font-bold text-white shadow-lg transition"
                 style={{ backgroundColor: "var(--color-brand)" }}
-              >
+                >
                 AGENDAR UNA CITA
-              </motion.button>
+                </motion.button>
             </motion.div>
 
-            {/* Imagen */}
+            {/* Imagen un poco más pequeña para no forzar tanto el height */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.88 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="w-full md:w-1/2 flex justify-center"
+                initial={{ opacity: 0, scale: 0.88 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="w-full md:w-2/5 flex justify-center"
             >
-              <div className="relative w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] md:w-[340px] md:h-[340px]">
-                <Image
-                  src={servicio.img}
-                  alt={servicio.title}
-                  fill
-                  className="object-contain drop-shadow-xl"
-                  priority
-                />
-              </div>
+                <div className="relative w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] md:w-[280px] md:h-[280px]">
+                <Image src={servicio.img} alt={servicio.title} fill className="object-contain drop-shadow-xl" priority />
+                </div>
             </motion.div>
-
-          </div>
+            </div>
         </div>
-      </section>
+        </section>
 
-      {/* ══ SEPARADOR WAVE ══ */}
-      <div className="w-full overflow-hidden leading-[0] -mt-1">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="block w-full h-12" style={{ fill: "var(--color-brand-light)" }}>
-          <path d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z" />
+        {/* ══ SEPARADOR WAVE MEJORADO ══ */}
+        <div className="w-full overflow-hidden leading-[0] -mt-1 relative z-20">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="block w-full h-16" style={{ fill: "var(--color-brand-light)" }}>
+            <path d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z" />
         </svg>
-      </div>
+        </div>
 
       {/* ══ CONTENIDO PRINCIPAL ══ */}
       <section className="section-px py-14 md:py-20 container mx-auto">
