@@ -7,9 +7,9 @@ import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowLeft, CheckCircle2, HelpCircle, Users } from "lucide-react";
 import { ArrowRight01Icon, Medicine01Icon } from "hugeicons-react";
-import { services } from "../../ts/servicio";
-import { CustomPaw } from "@/app/component/customPaw";
-import { staff } from "@/app/ts/staf";
+import { services } from "../../../../types/servicio";
+import { CustomPaw } from "@/component/customPaw";
+import { staff } from "@/types/staf";
 
 /* ── Fondo de huella SVG inline ── */
 const PawBg = ({ className }: { className?: string }) => (
@@ -274,7 +274,7 @@ export default function DetalleServicio() {
                   .map((s) => (
                     <Link
                       key={s.id}
-                      href={`/servicios/${s.id}`}
+                      href={`/veterinaria/servicios/${s.id}`}
                       className="text-xs py-2 px-3 rounded-lg transition hover:font-semibold"
                       style={{ color: "var(--color-text-muted)" }}
                       onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--color-brand)")}
@@ -348,7 +348,7 @@ export default function DetalleServicio() {
                               </p>
                               
                               <Link 
-                                href={`/staff-medico/${doc.id}`}
+                                href={`/veterinaria/staff-medico/${doc.id}`}
                                 className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-black uppercase text-gray-400 hover:text-purple-700 transition-colors"
                               >
                                 Ver perfil <ArrowRight01Icon size={12} />

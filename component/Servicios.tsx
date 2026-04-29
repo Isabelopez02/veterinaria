@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { services } from "../ts/servicio";
+import { services } from "../types/servicio";
 
 const CustomPaw = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
   <div
@@ -93,7 +93,7 @@ export default function Servicios() {
                   className="flex-[0_0_280px] sm:flex-[0_0_320px] min-w-0 px-4 py-6"
                 >
                   {/* 2. Envolvemos la card en un Link dinámico */}
-                  <Link href={`/servicios/${service.id}`}>
+                  <Link href={`/veterinaria/servicios/${service.id}`}>
                     <motion.div
                       whileHover={{ y: -10 }}
                       className="bg-white rounded-[32px] p-8 h-full flex flex-col items-center text-center shadow-[0_15px_35px_rgba(75,0,130,0.08)] border border-purple-50 group cursor-pointer"

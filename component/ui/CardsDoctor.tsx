@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Staff } from "../ts/staf";
+import { Staff } from "../../types/staf";
 import { ArrowRight01Icon as ArrowRightIcon } from "hugeicons-react";
 
 interface CardsDoctorProps {
@@ -13,7 +13,7 @@ interface CardsDoctorProps {
 
 export const CardDoctor = ({ doc, small = false }: CardsDoctorProps) => {
   return (
-    <Link href={`/staff-medico/${doc.id}`} className="block h-full group">
+    <Link href={`veterinaria/staff-medico/${doc.id}`} className="block h-full group">
       <div
         className={`group rounded-2xl overflow-hidden border bg-white transition-all duration-300 hover:shadow-xl${
           small ? 'p-0' : 'p-0' 

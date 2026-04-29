@@ -3,8 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { staff } from "../ts/staf";
-import { CardDoctor } from "./CardsDoctor";
+import { staff } from "../types/staf";
+import { CardDoctor } from "./ui/CardsDoctor";
 
 function useSlideCount() {
   const [count, setCount] = useState(1);

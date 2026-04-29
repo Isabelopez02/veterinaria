@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { consentidosData, Consentido } from "../ts/concentido";
+import { consentidosData, Consentido } from "../types/concentido";
 
 export default function Concentidos() {
   return (

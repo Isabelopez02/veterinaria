@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PawPrint, Menu, X } from "lucide-react";
-import { CustomPaw } from "../component/customPaw";
+import { CustomPaw } from "../customPaw";
 
 const navLinks = ["Nosotros", "Staff Médico", "Servicios", "Ubicación", "Blogs", "Contacto"];
 
