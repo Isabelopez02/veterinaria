@@ -6,9 +6,10 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowLeft, CheckCircle2, HelpCircle, Users } from "lucide-react";
-import { Medicine01Icon } from "hugeicons-react";
+import { ArrowRight01Icon, Medicine01Icon } from "hugeicons-react";
 import { services } from "../../ts/servicio";
 import { CustomPaw } from "@/app/component/customPaw";
+import { staff } from "@/app/ts/staf";
 
 /* ── Fondo de huella SVG inline ── */
 const PawBg = ({ className }: { className?: string }) => (
@@ -312,31 +313,62 @@ export default function DetalleServicio() {
                   </div>
                 )}
 
-                {/* Doctores */}
+                {/* --- SECCIÓN DOCTORES VINCULADOS --- */}
                 {activeTab === "doctores" && (
-                  <div
-                    className="rounded-2xl p-10 text-center border-2 border-dashed flex flex-col items-center gap-3"
-                    style={{ borderColor: "var(--color-brand-light)" }}
-                  >
-                    <span
-                      className="w-14 h-14 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: "var(--color-brand-light)", color: "var(--color-brand)" }}
-                    >
-                      <Users size={24} />
-                    </span>
-                    <p className="font-bold" style={{ color: "var(--color-brand)" }}>
-                      Personal médico especializado
-                    </p>
-                    <p className="text-sm max-w-sm" style={{ color: "var(--color-text-light)" }}>
-                      Nuestro equipo en {servicio.title.toLowerCase()} está disponible para atenderte. Agenda una cita para conocerlos.
-                    </p>
-                    <Link
-                      href="/"
-                      className="mt-2 inline-block px-6 py-2.5 rounded-full text-white text-xs font-bold transition hover:opacity-90"
-                      style={{ backgroundColor: "var(--color-brand)" }}
-                    >
-                      Ver staff médico
-                    </Link>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* 1. Filtramos los doctores que tienen este servicio en su lista */}
+                    {staff
+                      .filter((doc) => doc.serviceIds.includes(servicio.id))
+                      .map((doc) => (
+                        <motion.div
+                          key={doc.id}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="group relative overflow-hidden rounded-[24px] border bg-white p-4 transition-all hover:shadow-xl hover:border-purple-200"
+                          style={{ borderColor: "var(--color-brand-light)" }}
+                        >
+                          <div className="flex items-center gap-5">
+                            {/* Foto pequeña del doctor */}
+                            <div className="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden bg-purple-50">
+                              <Image 
+                                src={doc.img} 
+                                alt={doc.name} 
+                                fill 
+                                className="object-contain object-bottom transition-transform duration-500 group-hover:scale-110" 
+                              />
+                            </div>
+
+                            {/* Info rápida */}
+                            <div className="flex-1">
+                              <h4 className="text-[11px] font-black uppercase text-gray-900 leading-tight">
+                                {doc.name}
+                              </h4>
+                              <p className="text-[10px] font-bold text-purple-600 uppercase tracking-widest mt-1">
+                                {doc.specialty}
+                              </p>
+                              
+                              <Link 
+                                href={`/staff-medico/${doc.id}`}
+                                className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-black uppercase text-gray-400 hover:text-purple-700 transition-colors"
+                              >
+                                Ver perfil <ArrowRight01Icon size={12} />
+                              </Link>
+                            </div>
+                          </div>
+                          
+                          {/* Badge de "Disponible" o similar */}
+                          <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                        </motion.div>
+                      ))}
+
+                    {/* Si no hay doctores vinculados (Fallback) */}
+                    {staff.filter((doc) => doc.serviceIds.includes(servicio.id)).length === 0 && (
+                      <div className="col-span-full py-10 text-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-100">
+                        <p className="text-gray-400 text-xs font-medium uppercase tracking-widest">
+                          Consultar disponibilidad de especialistas
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )}
               </motion.div>

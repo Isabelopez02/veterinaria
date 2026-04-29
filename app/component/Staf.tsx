@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { staff } from "../ts/staf";
+import { CardDoctor } from "./CardsDoctor";
 
 function useSlideCount() {
   const [count, setCount] = useState(1);
@@ -90,53 +90,13 @@ export default function Staf() {
               animate={{ x: `-${current * cardWidthPercent}%` }}
               transition={{ type: "spring", stiffness: 300, damping: 32 }}
             >
-              {staff.map((doc, index) => (
+              {staff.map((doc, index) => (                
                 <div
                   key={index}
                   style={{ minWidth: `${cardWidthPercent}%` }}
                   className="px-2.5 shrink-0"
                 >
-                  <div
-                    className="group rounded-2xl overflow-hidden border bg-white transition-all duration-300 hover:shadow-xl"
-                    style={{ borderColor: "var(--color-brand-light)" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-brand)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-brand-light)")}
-                  >
-                    {/* Imagen */}
-                    <div
-                      className="relative h-52 sm:h-56 flex items-end justify-center overflow-hidden"
-                      style={{ background: "linear-gradient(to bottom, var(--color-brand-light), #d8b4fe33)" }}
-                    >
-                      <Image
-                        src={doc.img}
-                        alt={doc.name}
-                        fill
-                        className="object-contain object-bottom p-3 z-10 transition-transform duration-500 group-hover:scale-[1.04]"
-                      />
-                    </div>
-
-                    {/* Info */}
-                    <div className="px-5 py-4 text-center">
-                      <h3
-                        className="text-xs font-black uppercase leading-tight mb-1"
-                        style={{ color: "var(--color-text-base)" }}
-                      >
-                        {doc.name}
-                      </h3>
-                      <p
-                        className="text-[10px] font-medium mb-4"
-                        style={{ color: "var(--color-brand)" }}
-                      >
-                        {doc.specialty}
-                      </p>
-                      <button
-                        className="w-full py-2 rounded-full text-white text-[10px] font-bold tracking-wide transition active:scale-95 hover:opacity-90"
-                        style={{ backgroundColor: "var(--color-brand)" }}
-                      >
-                        Reservar cita →
-                      </button>
-                    </div>
-                  </div>
+                  <CardDoctor doc={doc} />
                 </div>
               ))}
             </motion.div>

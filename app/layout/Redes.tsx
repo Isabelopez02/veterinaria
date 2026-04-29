@@ -30,7 +30,7 @@ export default function Redes() {
     /* Mobile: right-4 top-1/2 (Derecha para no estorbar lectura)
        Desktop: left-0 top-0 h-full (Izquierda original)
     */
-    <div className="fixed left-4 md:right-auto md:left-0 top-1/4 -translate-y-1/2 md:top-0 md:translate-y-0 md:h-full w-auto md:w-20 z-50 flex flex-col items-center justify-center pointer-events-none">
+    <div className="fixed left-4 md:right-auto md:left-0 top-1/4 -translate-y-1/4 md:top-0 md:translate-y-0 md:h-full w-auto md:w-20 z-50 flex flex-col items-center justify-center pointer-events-none">
       
       <div className="flex flex-col items-center gap-4 md:gap-5 pointer-events-auto bg-white/10 md:bg-transparent p-2 md:p-0 rounded-full backdrop-blur-sm md:backdrop-blur-none">
         
