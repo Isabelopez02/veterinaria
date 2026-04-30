@@ -4,22 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const CustomPaw = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
-  <div
-    className={`inline-block ${className}`}
-    style={{
-      maskImage: "url(/paw-icon.svg)",
-      maskRepeat: "no-repeat",
-      maskSize: "contain",
-      WebkitMaskImage: "url(/paw-icon.svg)",
-      WebkitMaskRepeat: "no-repeat",
-      WebkitMaskSize: "contain",
-      backgroundColor: "currentColor",
-      ...style,
-    }}
-  />
-);
-
 export default function Nosotros() {
   return (
     <div className="w-full">

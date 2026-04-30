@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { staff } from "../../../../types/staf";
 import { services } from "../../../../types/servicio";
 import { 
@@ -17,7 +17,7 @@ import {
   ArrowLeft01Icon
 } from "hugeicons-react";
 import { CardDoctor } from "@/component/ui/CardsDoctor";
-import { CustomPaw } from "@/component/customPaw";
+import { CustomPaw } from "@/component/ui/customPaw";
 
 export default function DoctorDetail() {
   const { id } = useParams();
@@ -214,8 +214,8 @@ export default function DoctorDetail() {
 
               {serviciosVinculados.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {serviciosVinculados.map((serv, idx) => (
-                    <Link key={serv.id} href={`/veterinaria/servicios/${serv.id}`} className="group">
+                  {serviciosVinculados.map((serv,idx) => (
+                    <Link key={serv.id} href={`/servicios/${serv.id}`} className="group">
                       <div className="p-4 rounded-3xl border border-gray-100 hover:border-purple-200 hover:shadow-md transition-all h-full flex flex-col">
                         <div className="w-10 h-10 relative mb-4 rounded-xl overflow-hidden bg-purple-50 p-2">
                           <Image src={serv.img} alt={serv.title} fill className="object-contain" />

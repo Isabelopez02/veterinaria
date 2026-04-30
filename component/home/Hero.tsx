@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { CustomPaw } from "./customPaw";
+import { CustomPaw } from "../ui/customPaw";
 
 const AnimatedPaw = ({ className, style, delay = 0, duration = 4 }: { className?: string;  style?: React.CSSProperties; delay?: number; duration?: number }) => {
   const [opacity, setOpacity] = useState(0);
@@ -77,8 +77,8 @@ const paws = [
 ];
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-white to-purple-50/30">
-      <main className="section-px container mx-auto flex flex-col items-center justify-center pt-8 pb-28 md:pt-12 lg:flex-row relative z-10 min-h-screen gap-6 lg:gap-12">
+    <div className="relative w-full overflow-hidden bg-gradient-to-b from-white to-purple-50/30">
+      <section className="section-px container mx-auto flex flex-col items-center justify-center pt-12 pb-28 md:pt-16 lg:flex-row relative z-10 gap-6 lg:gap-12">
         
         {/* Texto */}
         <div className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1 mt-8 lg:mt-0">
@@ -132,7 +132,7 @@ const paws = [
             <Image src="/img/hero.png" alt="Mascotas felices" fill className="object-cover object-top p-5" />
           </motion.div>
         </div>
-      </main>
+      </section>
 
       {/* Huellas con opacidad reducida */}
       {paws.map((paw) => (

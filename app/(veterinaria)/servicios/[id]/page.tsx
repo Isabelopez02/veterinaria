@@ -8,19 +8,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowLeft, CheckCircle2, HelpCircle, Users } from "lucide-react";
 import { ArrowRight01Icon, Medicine01Icon } from "hugeicons-react";
 import { services } from "../../../../types/servicio";
-import { CustomPaw } from "@/component/customPaw";
+import { CustomPaw } from "@/component/ui/customPaw";
 import { staff } from "@/types/staf";
-
-/* ── Fondo de huella SVG inline ── */
-const PawBg = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 100 100" className={className} fill="currentColor">
-    <ellipse cx="50" cy="72" rx="22" ry="18" />
-    <ellipse cx="28" cy="50" rx="10" ry="13" />
-    <ellipse cx="72" cy="50" rx="10" ry="13" />
-    <ellipse cx="36" cy="30" rx="9" ry="11" />
-    <ellipse cx="64" cy="30" rx="9" ry="11" />
-  </svg>
-);
 
 /* ── Tabs de navegación ── */
 const TABS = [
@@ -274,7 +263,7 @@ export default function DetalleServicio() {
                   .map((s) => (
                     <Link
                       key={s.id}
-                      href={`/veterinaria/servicios/${s.id}`}
+                      href={`/servicios/${s.id}`}
                       className="text-xs py-2 px-3 rounded-lg transition hover:font-semibold"
                       style={{ color: "var(--color-text-muted)" }}
                       onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--color-brand)")}
@@ -348,7 +337,7 @@ export default function DetalleServicio() {
                               </p>
                               
                               <Link 
-                                href={`/veterinaria/staff-medico/${doc.id}`}
+                                href={`/staff-medico/${doc.id}`}
                                 className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-black uppercase text-gray-400 hover:text-purple-700 transition-colors"
                               >
                                 Ver perfil <ArrowRight01Icon size={12} />

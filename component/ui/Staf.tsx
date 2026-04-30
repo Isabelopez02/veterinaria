@@ -3,8 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { staff } from "../types/staf";
-import { CardDoctor } from "./ui/CardsDoctor";
+import { staff } from "../../types/staf";
+import { CardDoctor } from "./CardsDoctor";
 
 function useSlideCount() {
   const [count, setCount] = useState(1);
@@ -33,8 +33,6 @@ export default function Staf() {
   const onTouchStart = (e: React.TouchEvent) => { dragStart.current = e.touches[0].clientX; };
   const onTouchEnd = (e: React.TouchEvent) => {
     if (dragStart.current === null) return;
-    const diff = dragStart.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
     dragStart.current = null;
   };
 
