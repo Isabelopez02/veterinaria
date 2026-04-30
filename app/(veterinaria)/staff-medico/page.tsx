@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, Calendar, User, Stethoscope, FilterX } from "lucide-react";
 import { staff } from "@/types/staf";
 import { CardDoctor } from "@/component/ui/CardsDoctor";
+import { CustomPaw } from "@/component/ui/customPaw";
 
 const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
@@ -38,9 +39,14 @@ export default function StaffMedicoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50/50 pb-5">
+    <main className="min-h-screen bg-[#fdfaff] pb-5">
       {/* Header Sección */}
-      <section className="bg-white border-b border-gray-100 pt-10 pb-12">
+      <section className="bg-white border-b border-gray-100 pt-20 pb-16 relative overflow-hidden">
+        {/* Decoración de huellas */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+          <CustomPaw className="absolute left-[5%] top-10 w-40 h-40 -rotate-12" />
+          <CustomPaw className="absolute right-[10%] bottom-5 w-56 h-56 rotate-12" />
+        </div>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: -20 }}

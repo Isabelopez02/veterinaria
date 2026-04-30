@@ -43,7 +43,7 @@ export default function DoctorDetail() {
         <h2 className="text-2xl font-black text-[#4B0082] uppercase mb-2">Especialista no encontrado</h2>
         <p className="text-gray-500 text-sm mb-8">Lo sentimos, no pudimos encontrar el perfil que buscas.</p>
         <Link 
-          href="/staff" 
+          href="/staff-medico" 
           className="inline-flex items-center gap-2 bg-[#4B0082] text-white px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-black transition-all"
         >
           <ArrowLeft01Icon size={16} /> Volver al equipo
@@ -71,7 +71,7 @@ export default function DoctorDetail() {
           >
             <Link href="/" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-[#4B0082] transition-colors">Inicio</Link>
             <span className="text-[10px] text-gray-300">/</span>
-            <Link href="/staff" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-[#4B0082] transition-colors">Staff Médico</Link>
+            <Link href="/staff-medico" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-[#4B0082] transition-colors">Staff Médico</Link>
             <span className="text-[10px] text-gray-300">/</span>
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#4B0082]">{doc.name}</span>
           </motion.div>
@@ -246,7 +246,7 @@ export default function DoctorDetail() {
               <h3 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">Otros Especialistas</h3>
             </div>
             <Link 
-              href="/staff" 
+              href="/staff-medico" 
               className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-purple-400 hover:text-[#4B0082] transition-colors group"
             >
               Ver todos <ArrowRightIcon size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -269,7 +269,7 @@ export default function DoctorDetail() {
         {/* ─── BOTÓN DE REGRESO ─── */}
         <div className="mt-20 text-center">
           <Link 
-            href="/staff" 
+            href="/staff-medico" 
             className="inline-flex items-center gap-3 text-gray-400 hover:text-[#4B0082] transition-colors font-bold text-xs uppercase tracking-widest group"
           >
             <div className="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center group-hover:border-purple-200 transition-all">

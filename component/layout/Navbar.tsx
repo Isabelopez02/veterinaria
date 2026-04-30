@@ -12,8 +12,6 @@ const navLinks = [
   { name: "Nosotros", href: "/nosotros" },
   { name: "Staff Médico", href: "/staff-medico" },
   { name: "Servicios", href: "/servicios", hasDropdown: true },
-  { name: "Ubicación", href: "#" },
-  { name: "Blogs", href: "#" },
   { name: "Contacto", href: "/contacto" },
 ];
 
@@ -43,14 +41,17 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
         {/* ── Huellas decorativas de fondo ── */}
         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-          <CustomPaw className="absolute -left-3 -top-4 w-16 h-16 text-purple-50 rotate-[-20deg]" />
-          <CustomPaw className="absolute left-28 top-1 w-10 h-10 text-purple-50 rotate-[15deg]" />
-          <CustomPaw className="absolute left-1/2 -translate-x-1/2 -top-3 w-14 h-14 text-yellow-50 rotate-[30deg]" />
-          <CustomPaw className="absolute right-56 top-0 w-9 h-9 text-purple-50 rotate-[-10deg]" />
-          <CustomPaw className="absolute right-24 -top-2 w-12 h-12 text-purple-100 rotate-[25deg]" />
-          <CustomPaw className="absolute right-6 top-2 w-8 h-8 text-yellow-50 rotate-[-30deg]" />
-          <CustomPaw className="absolute left-1/3 bottom-0 w-7 h-7 text-purple-50 rotate-[40deg]" />
-          <CustomPaw className="absolute left-2/3 -bottom-1 w-6 h-6 text-purple-50 rotate-[-15deg]" />
+          <CustomPaw className="absolute -left-3 -top-4 w-16 h-16 text-purple-100/50 rotate-[-20deg]" />
+          <CustomPaw className="absolute left-28 top-1 w-10 h-10 text-purple-100/40 rotate-[15deg]" />
+          <CustomPaw className="absolute left-1/2 -translate-x-1/2 -top-3 w-14 h-14 text-yellow-100/40 rotate-[30deg]" />
+          <CustomPaw className="absolute right-[30%] top-2 w-10 h-10 text-purple-100/30 rotate-[-12deg]" />
+          <CustomPaw className="absolute right-56 top-0 w-9 h-9 text-purple-100/40 rotate-[-10deg]" />
+          <CustomPaw className="absolute right-24 -top-2 w-12 h-12 text-purple-100/50 rotate-[25deg]" />
+          <CustomPaw className="absolute right-6 top-2 w-8 h-8 text-yellow-100/40 rotate-[-30deg]" />
+          <CustomPaw className="absolute left-[15%] bottom-0 w-7 h-7 text-purple-100/30 rotate-[40deg]" />
+          <CustomPaw className="absolute left-[40%] -bottom-1 w-6 h-6 text-purple-100/30 rotate-[-15deg]" />
+          <CustomPaw className="absolute right-[45%] bottom-1 w-8 h-8 text-purple-100/30 rotate-[20deg]" />
+          <CustomPaw className="absolute right-[15%] -bottom-2 w-10 h-10 text-yellow-100/30 rotate-[-45deg]" />
         </div>
 
         <nav className="relative mx-auto max-w-6xl px-8 py-4 flex items-center justify-between">
