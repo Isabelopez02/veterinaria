@@ -78,7 +78,7 @@ const paws = [
 
   return (
     <div className="relative w-full overflow-hidden bg-gradient-to-b from-white to-purple-50/30">
-      <section className="section-px container mx-auto flex flex-col items-center justify-center pt-12 pb-28 md:pt-16 lg:flex-row relative z-10 gap-6 lg:gap-12">
+      <section className="section-px max-w-6xl mx-auto flex flex-col items-center justify-center pt-12 pb-28 md:pt-16 lg:flex-row relative z-10 gap-6 lg:gap-12">
         
         {/* Texto */}
         <div className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1 mt-8 lg:mt-0">

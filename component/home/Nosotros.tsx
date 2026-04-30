@@ -11,7 +11,7 @@ export default function Nosotros() {
         className="relative section-px py-14 md:py-20 overflow-hidden"
         style={{ backgroundColor: "var(--color-brand)" }}
       >
-        <div className="container mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 relative z-10">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 relative z-10">
 
           {/* Imagen */}
           <motion.div

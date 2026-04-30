@@ -2,10 +2,20 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PawPrint, Menu, X } from "lucide-react";
+import { PawPrint, Menu, X, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CustomPaw } from "../ui/customPaw";
+import { services } from "@/types/servicio";
 
-const navLinks = ["Nosotros", "Staff Médico", "Servicios", "Ubicación", "Blogs", "Contacto"];
+const navLinks = [
+  { name: "Nosotros", href: "/nosotros" },
+  { name: "Staff Médico", href: "/staff-medico" },
+  { name: "Servicios", href: "/servicios", hasDropdown: true },
+  { name: "Ubicación", href: "#" },
+  { name: "Blogs", href: "#" },
+  { name: "Contacto", href: "/contacto" },
+];
 
 // SVG de huella inline para el fondo decorativo
 const PawBg = ({ className }: { className?: string }) => (
@@ -25,36 +35,84 @@ const PawBg = ({ className }: { className?: string }) => (
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100 overflow-hidden">
-        {/* ── Huellas decorativas de fondo en el header ── */}
-        <div className="absolute inset-0 pointer-events-none select-none">
-          {/* Usamos CustomPaw en lugar de PawBg */}
-          <CustomPaw className="absolute -left-3 -top-4 w-16 h-16 text-purple-100 rotate-[-20deg]" />
-          <CustomPaw className="absolute left-28 top-1 w-10 h-10 text-purple-100 rotate-[15deg]" />
-          <CustomPaw className="absolute left-1/2 -translate-x-1/2 -top-3 w-14 h-14 text-yellow-100 rotate-[30deg]" />
-          <CustomPaw className="absolute right-56 top-0 w-9 h-9 text-purple-100 rotate-[-10deg]" />
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
+        {/* ── Huellas decorativas de fondo ── */}
+        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+          <CustomPaw className="absolute -left-3 -top-4 w-16 h-16 text-purple-50 rotate-[-20deg]" />
+          <CustomPaw className="absolute left-28 top-1 w-10 h-10 text-purple-50 rotate-[15deg]" />
+          <CustomPaw className="absolute left-1/2 -translate-x-1/2 -top-3 w-14 h-14 text-yellow-50 rotate-[30deg]" />
+          <CustomPaw className="absolute right-56 top-0 w-9 h-9 text-purple-50 rotate-[-10deg]" />
           <CustomPaw className="absolute right-24 -top-2 w-12 h-12 text-purple-100 rotate-[25deg]" />
-          <CustomPaw className="absolute right-6 top-2 w-8 h-8 text-yellow-100 rotate-[-30deg]" />
-          <CustomPaw className="absolute left-1/3 bottom-0 w-7 h-7 text-purple-100 rotate-[40deg]" />
-          <CustomPaw className="absolute left-2/3 -bottom-1 w-6 h-6 text-purple-100 rotate-[-15deg]" />
+          <CustomPaw className="absolute right-6 top-2 w-8 h-8 text-yellow-50 rotate-[-30deg]" />
+          <CustomPaw className="absolute left-1/3 bottom-0 w-7 h-7 text-purple-50 rotate-[40deg]" />
+          <CustomPaw className="absolute left-2/3 -bottom-1 w-6 h-6 text-purple-50 rotate-[-15deg]" />
         </div>
 
-        <nav className="relative mx-auto max-w-7xl px-5 py-4 flex items-center justify-between">
+        <nav className="relative mx-auto max-w-6xl px-8 py-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2 text-purple-700 font-bold text-xl z-10">
+          <Link href="/" className="flex items-center gap-2 text-purple-700 font-black text-xl z-10 uppercase tracking-tighter">
             <PawPrint className="w-6 h-6" />
             Happy Pets
-          </div>
+          </Link>
 
           {/* Links desktop */}
-          <ul className="hidden md:flex items-center gap-8 text-gray-600 font-medium">
-            {navLinks.map((item) => (
-              <li key={item} className="relative group cursor-pointer">
-                <span className="group-hover:text-purple-700 transition">{item}</span>
-                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-purple-700 transition-all group-hover:w-full" />
+          <ul className="hidden md:flex items-center gap-8 text-gray-600 font-bold text-[13px] uppercase tracking-wide">
+            {navLinks.map((link) => (
+              <li 
+                key={link.name} 
+                className="relative group"
+                onMouseEnter={() => link.hasDropdown && setServicesOpen(true)}
+                onMouseLeave={() => link.hasDropdown && setServicesOpen(false)}
+              >
+                <Link 
+                  href={link.href}
+                  className={`flex items-center gap-1 transition-colors hover:text-purple-700 ${
+                    pathname === link.href ? "text-purple-700" : ""
+                  }`}
+                >
+                  {link.name}
+                  {link.hasDropdown && <ChevronDown size={14} className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`} />}
+                </Link>
+                
+                {/* Dropdown de Servicios */}
+                {link.hasDropdown && (
+                  <AnimatePresence>
+                    {servicesOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute left-0 top-full pt-4 w-64"
+                      >
+                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden p-2">
+                          {services.map((service) => (
+                            <Link 
+                              key={service.id}
+                              href={`/servicios/${service.id}`}
+                              className="flex items-center gap-3 p-3 rounded-xl hover:bg-purple-50 group/item transition-colors"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-700 group-hover/item:bg-purple-700 group-hover/item:text-white transition-colors">
+                                <PawPrint size={14} />
+                              </div>
+                              <span className="text-[10px] font-black text-gray-700 group-hover/item:text-purple-700">
+                                {service.title}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+
+                <span className={`absolute left-0 -bottom-1 h-[2px] bg-purple-700 transition-all ${
+                  pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
+                }`} />
               </li>
             ))}
           </ul>
@@ -63,7 +121,7 @@ export default function Navbar() {
           <motion.button
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
-            className="hidden md:block bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-5 py-2 rounded-full shadow-md"
+            className="hidden md:block bg-yellow-400 hover:bg-yellow-300 text-black font-black text-[11px] px-6 py-2.5 rounded-full shadow-md uppercase tracking-widest"
           >
             RESERVAR CITA
           </motion.button>
@@ -79,41 +137,36 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* ── DRAWER — slide desde la derecha, 50% de ancho ── */}
+      {/* ── DRAWER MÓVIL ── */}
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Overlay oscuro */}
             <motion.div
               key="overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm md:hidden"
               onClick={() => setMenuOpen(false)}
             />
 
-            {/* Panel — entra desde la derecha, ocupa 50vw */}
             <motion.aside
               key="drawer"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed top-0 right-0 z-50 h-full w-1/2 min-w-[220px] max-w-xs bg-white shadow-2xl flex flex-col md:hidden overflow-hidden"
+              className="fixed top-0 right-0 z-[70] h-full w-4/5 max-w-xs bg-white shadow-2xl flex flex-col md:hidden overflow-hidden"
             >
-              {/* Huellas decorativas dentro del drawer */}
-              <div className="absolute inset-0 pointer-events-none select-none">
-                <PawBg className="absolute -right-4 top-8 w-24 h-24 text-purple-50 rotate-[20deg]" />
-                <PawBg className="absolute left-2 top-32 w-16 h-16 text-yellow-50 rotate-[-15deg]" />
-                <PawBg className="absolute right-2 bottom-28 w-20 h-20 text-purple-50 rotate-[10deg]" />
-                <PawBg className="absolute left-4 bottom-14 w-12 h-12 text-purple-50 rotate-[-25deg]" />
+              {/* Huellas decorativas */}
+              <div className="absolute inset-0 pointer-events-none select-none opacity-20">
+                <PawBg className="absolute -right-4 top-8 w-24 h-24 text-purple-100 rotate-[20deg]" />
+                <PawBg className="absolute left-2 top-32 w-16 h-16 text-yellow-100 rotate-[-15deg]" />
               </div>
 
               {/* Cabecera drawer */}
-              <div className="relative flex items-center justify-between px-5 py-4 border-b border-purple-50">
-                <div className="flex items-center gap-2 text-purple-700 font-bold text-base">
+              <div className="relative flex items-center justify-between px-6 py-5 border-b border-purple-50">
+                <div className="flex items-center gap-2 text-purple-700 font-black text-lg uppercase tracking-tighter">
                   <PawPrint className="w-5 h-5" />
                   Happy Pets
                 </div>
@@ -121,39 +174,74 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(false)}
                   className="p-2 rounded-lg text-gray-400 hover:text-purple-700 hover:bg-purple-50 transition"
                 >
-                  <X size={20} />
+                  <X size={24} />
                 </button>
               </div>
 
-              {/* Links con fade + slide escalonado */}
-              <nav className="relative flex-1 overflow-y-auto px-4 py-5 flex flex-col gap-0.5">
-                {navLinks.map((item, i) => (
-                  <motion.a
-                    key={item}
-                    href="#"
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 24 }}
-                    transition={{ delay: i * 0.07, duration: 0.35, ease: "easeOut" }}
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-medium hover:bg-purple-50 hover:text-purple-700 transition group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-200 group-hover:bg-purple-600 transition" />
-                    <span className="text-sm">{item}</span>
-                  </motion.a>
+              {/* Links móvil */}
+              <nav className="relative flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-2">
+                {navLinks.map((link, i) => (
+                  <div key={link.name}>
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => !link.hasDropdown && setMenuOpen(false)}
+                        className={`flex items-center justify-between py-4 px-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-colors ${
+                          pathname === link.href ? "bg-purple-50 text-purple-700" : "text-gray-600 hover:bg-gray-50"
+                        }`}
+                      >
+                        {link.name}
+                        {link.hasDropdown && (
+                          <button 
+                            onClick={(e) => { e.preventDefault(); setServicesOpen(!servicesOpen); }}
+                            className="p-1"
+                          >
+                            <ChevronDown size={18} className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                          </button>
+                        )}
+                      </Link>
+                    </motion.div>
+
+                    {/* Submenú móvil */}
+                    {link.hasDropdown && (
+                      <AnimatePresence>
+                        {servicesOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden bg-gray-50/50 rounded-2xl mt-1 mx-2"
+                          >
+                            <div className="py-2">
+                              {services.map((service) => (
+                                <Link
+                                  key={service.id}
+                                  href={`/servicios/${service.id}`}
+                                  onClick={() => setMenuOpen(false)}
+                                  className="flex items-center gap-3 py-3 px-6 text-[10px] font-bold uppercase text-gray-500 hover:text-purple-700"
+                                >
+                                  <div className="w-1.5 h-1.5 rounded-full bg-purple-300" />
+                                  {service.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
+                  </div>
                 ))}
               </nav>
 
-              {/* CTA en el drawer */}
-              <div className="relative px-5 pb-6 pt-3 border-t border-purple-50">
-                <motion.button
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.07 + 0.1 }}
-                  className="w-full bg-[#4B0082] hover:bg-purple-900 text-white font-bold py-3 rounded-full shadow-lg transition active:scale-95 text-sm"
-                >
+              {/* CTA móvil */}
+              <div className="relative px-6 pb-8 pt-4 border-t border-purple-50">
+                <button className="w-full bg-purple-700 hover:bg-purple-800 text-white font-black py-4 rounded-2xl shadow-lg transition-transform active:scale-95 uppercase text-xs tracking-[0.2em]">
                   RESERVAR CITA
-                </motion.button>
+                </button>
               </div>
             </motion.aside>
           </>

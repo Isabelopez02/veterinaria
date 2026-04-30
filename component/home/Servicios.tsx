@@ -47,7 +47,7 @@ export default function Servicios() {
       <CustomPaw className="absolute left-[-5%] top-[10%] h-[500px] w-[500px] text-purple-100/40 -rotate-12 z-0" />
       <CustomPaw className="absolute right-[-10%] top-[30%] h-[400px] w-[400px] text-purple-100/30 rotate-12 z-0" />
       
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-16 lg:gap-20">
           
           <div className="w-full lg:w-[400px] shrink-0">
